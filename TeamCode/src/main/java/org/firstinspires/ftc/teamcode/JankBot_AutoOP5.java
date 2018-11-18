@@ -78,4 +78,12 @@ public class JankBot_AutoOP5 extends LinearOpMode
             base.update();
         }
     }
+
+    public void waitToRotate()
+    {
+        while (base.isBusy() && opModeIsActive())
+        {
+            base.update();
+        }
+    }
 }

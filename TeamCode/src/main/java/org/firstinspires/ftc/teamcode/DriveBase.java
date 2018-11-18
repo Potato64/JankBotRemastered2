@@ -35,8 +35,8 @@ public class DriveBase {
         this.right1 = right1;
         this.right2 = right2;
 
-        right1.setDirection(DcMotorSimple.Direction.REVERSE);
-        right2.setDirection(DcMotorSimple.Direction.REVERSE);
+        left1.setDirection(DcMotorSimple.Direction.REVERSE);
+        left2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -138,6 +138,14 @@ public class DriveBase {
             adjustHeading(rotSpeed);
         }
     }
+
+//    public boolean isBusy()
+//    {
+//        return left1.isBusy() &&
+//                left2.isBusy() &&
+//                right1.isBusy() &&
+//                right2.isBusy();
+//    }
 
     private void adjustHeading(double speed)
     {

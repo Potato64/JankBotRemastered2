@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-//starts facing depot, knocks off center mineral, deploys marker, goes to blue crater
+//starts facing depot, knocks off center mineral, deploys marker, goes to same crater
 @Autonomous(name="AutoOP2", group="Linear Opmode")
 public class JankBot_AutoOP2 extends LinearOpMode
 {
@@ -47,34 +47,42 @@ public class JankBot_AutoOP2 extends LinearOpMode
         waitToDrive(4000);
 
         base.setSpeed(0);
-        arm.intake.reverse();
+//        arm.intake.reverse();
 
         wait(500);
 
         base.setTargetHeading(-135);
-        arm.intake.setTiltPosition(0);
+//        arm.intake.setTiltPosition(0);
 
         waitToDrive(1000);
 
         base.setSpeed(0.5);
 
-        waitToDrive(10000);
+        waitToDrive(9000);
     }
 
     public void wait(int wait)
     {
         long start = System.currentTimeMillis();
 
-        while(System.currentTimeMillis() - start <= wait);
+        while(System.currentTimeMillis() - start <= wait && opModeIsActive());
     }
 
     public void waitToDrive(int wait)
     {
         long start = System.currentTimeMillis();
 
-        while(System.currentTimeMillis() - start <= wait)
+        while(System.currentTimeMillis() - start <= wait && opModeIsActive())
         {
             base.update();
         }
     }
+
+//    public void waitToRotate()
+//    {
+//        while (base.isBusy() && opModeIsActive())
+//        {
+//            base.update();
+//        }
+//    }
 }
