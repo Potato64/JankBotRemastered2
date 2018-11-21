@@ -12,14 +12,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="TestMotor", group="Iterative Opmode")
-public class JankBot_TestMotor extends OpMode
+public class TestMotor extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
-    private Arm arm;
+//    private Arm arm;
 
     DcMotor motor;
+    DcMotor motor2;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -27,7 +28,8 @@ public class JankBot_TestMotor extends OpMode
     @Override
     public void init()
     {
-        motor = hardwareMap.get(DcMotor.class, "lift");
+        motor = hardwareMap.get(DcMotor.class, "tiltIntake");
+        motor2 = hardwareMap.get(DcMotor.class, "lift");
 
 //        arm = new Arm(hardwareMap.get(DcMotor.class, "lift"), hardwareMap.get(DcMotor.class, "extend"),
 //                hardwareMap.get(DigitalChannel.class, "liftLimit"), hardwareMap.get(DigitalChannel.class, "extendLimit"),
@@ -54,10 +56,10 @@ public class JankBot_TestMotor extends OpMode
         runtime.reset();
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-//        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        motor.setPower(0.5);
+        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//        motor.setPower(0.5);
     }
 
     /*
@@ -66,8 +68,8 @@ public class JankBot_TestMotor extends OpMode
     @Override
     public void loop()
     {
-        motor.setTargetPosition((int)(-gamepad1.left_stick_y * 3000));
-//        motor.setPower(-gamepad1.left_stick_y);
+//        motor.setTargetPosition((int)(-gamepad1.left_stick_y * 3000));
+        motor.setPower(-gamepad1.left_stick_y);
 
         telemetry.addData("Ticks: ", motor.getCurrentPosition());
     }

@@ -91,8 +91,8 @@ public class DriveBase {
         double error = getHeading() - targetHeading;
         double powerChange = error * rotKP;// + error * KI;
 
-        double leftPower = speed + powerChange;
-        double rightPower = speed - powerChange;
+        double leftPower = speed - powerChange;
+        double rightPower = speed + powerChange;
 
         //keeps maximum power at or below 1, as to keep the proportions correct.
         double maxPower = Math.abs(speed) + Math.abs(powerChange);
@@ -117,8 +117,8 @@ public class DriveBase {
 
     public void updateTelOp()
     {
-        double leftPower = speed + rotSpeed;
-        double rightPower = speed - rotSpeed;
+        double leftPower = speed - rotSpeed;
+        double rightPower = speed + rotSpeed;
 
         double maxPower = Math.abs(speed) + Math.abs(rotSpeed);
         if (maxPower > 1)
