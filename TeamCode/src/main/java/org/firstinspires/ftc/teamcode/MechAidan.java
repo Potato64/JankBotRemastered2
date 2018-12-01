@@ -43,4 +43,28 @@ public class MechAidan implements MechOperator
         return (int)(-gamepad.right_stick_y  * Constants.TILT_UPPER_LIMIT / 2 + Constants.TILT_UPPER_LIMIT / 2);
     }
 
+    @Override
+    public void giveLiftPos(int pos)
+    {
+
+    }
+
+    @Override
+    public void giveExtendPos(int pos)
+    {
+
+    }
+
+    @Override
+    public void toggleArmMode()
+    {
+
+    }
+
+    @Override
+    public boolean climb()
+    {
+        return false;
+    }
+
 }

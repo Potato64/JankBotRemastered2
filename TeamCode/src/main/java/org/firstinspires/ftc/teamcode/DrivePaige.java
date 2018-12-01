@@ -22,10 +22,4 @@ public class DrivePaige implements DriveOperator
     {
         return gamepad.right_stick_x;
     }
-
-    @Override
-    public boolean climb()
-    {
-        return gamepad.b;
-    }
 }

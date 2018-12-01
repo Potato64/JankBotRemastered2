@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import static java.lang.Thread.sleep;
+import static org.firstinspires.ftc.teamcode.Constants.CLIMB_LOWER_LIMIT;
+import static org.firstinspires.ftc.teamcode.Constants.CLIMB_UPPER_LIMIT;
 
 public class Arm {
 
@@ -31,7 +33,6 @@ public class Arm {
                 Servo latchRelease)
     {
         this.lift = lift;
-        this.lift.setDirection(DcMotorSimple.Direction.REVERSE);
         this.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         this.extend = extend;
@@ -107,21 +108,28 @@ public class Arm {
     {
         climbed = true;
 
-        //motors are floated so they don't interfere with ascent
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        extend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
-        latch.unrelease();
+        lift.setTargetPosition(CLIMB_UPPER_LIMIT);
         try
         {
-            sleep(500);
+            sleep(5000);
         }
         catch (InterruptedException e)
         {
             e.printStackTrace();
         }
 
-        lift.setTargetPosition(Constants.LIFT_LOWER_LIMIT);
+        latch.unrelease();
+
+        try
+        {
+            sleep(1000);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+        lift.setTargetPosition(CLIMB_LOWER_LIMIT);
 
         try
         {
@@ -131,17 +139,10 @@ public class Arm {
         {
             e.printStackTrace();
         }
-
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        extend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void descend()
     {
-        //motors are floated so they don't interfere with descent
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        extend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
         lift.setTargetPosition(Constants.LIFT_UPPER_LIMIT);
         try
         {
@@ -161,9 +162,6 @@ public class Arm {
         {
             e.printStackTrace();
         }
-
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        extend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
 //    public void zero()

@@ -11,4 +11,12 @@ public interface MechOperator
     boolean reverseIntake();
 
     int tiltIntakePosition();
+
+    void toggleArmMode();
+
+    boolean climb();
+
+    void giveLiftPos(int pos);
+
+    void giveExtendPos(int pos);
 }
