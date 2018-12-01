@@ -114,10 +114,18 @@ public class JankBot_TeleOP extends OpMode
             arm.intake.stop();
         }
 
+        if (mechOperator.tiltResetEncoder())
+        {
+            arm.intake.resetTiltEncoder();
+        }
+
         mechOperator.toggleArmMode();
 
         telemetry.addData("pos: ", mechOperator.tiltIntakePosition());
         telemetry.addData("realpos", arm.intake.getTiltPosition());
+        telemetry.addData("realLiftPos", arm.getLiftPostition());
+        telemetry.addData("targetExtendPos", mechOperator.extendPosition());
+        telemetry.addData("realExtendPos", arm.getExtendPostion());
     }
 
     /*

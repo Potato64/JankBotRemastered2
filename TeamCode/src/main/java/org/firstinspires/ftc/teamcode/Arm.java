@@ -37,6 +37,7 @@ public class Arm {
                 Servo latchRelease)
     {
         this.lift = lift;
+        this.lift.setDirection(DcMotorSimple.Direction.REVERSE);
         this.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 

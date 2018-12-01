@@ -12,7 +12,7 @@ import static org.firstinspires.ftc.teamcode.Constants.TILT_UPPER_LIMIT;
 
 public class MechEthan implements MechOperator
 {
-    private final int MAX_LIFT_INCREMENT = 200;
+    private final int MAX_LIFT_INCREMENT = 500;
     private final int MAX_EXTEND_INCREMENT = 200;
 
     private int currentLiftPos;
@@ -90,7 +90,8 @@ public class MechEthan implements MechOperator
         }
         else //if stick not pushed
         {
-            return currentExtendPos;
+//            return currentExtendPos;
+            return 50;
         }
     }
 
@@ -100,10 +101,15 @@ public class MechEthan implements MechOperator
         return gamepad.b;
     }
 
-    @Override
     public boolean reverseIntake()
     {
         return gamepad.a;
+    }
+
+    @Override
+    public boolean tiltResetEncoder()
+    {
+        return gamepad.left_bumper;
     }
 
     @Override

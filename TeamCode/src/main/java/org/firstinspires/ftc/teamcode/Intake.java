@@ -59,4 +59,10 @@ public class Intake
     {
         return tilt.getCurrentPosition();
     }
+
+    public void resetTiltEncoder()
+    {
+        this.tilt.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.tilt.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
 }
