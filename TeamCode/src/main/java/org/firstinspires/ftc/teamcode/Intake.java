@@ -20,6 +20,7 @@ public class Intake
 
         this.tilt = tilt;
         this.tilt.setDirection(DcMotor.Direction.REVERSE);
+        this.tilt.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.tilt.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
