@@ -42,6 +42,7 @@ public class Arm {
         this.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         this.extend = extend;
+        this.extend.setDirection(DcMotorSimple.Direction.REVERSE);
         this.extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.extend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -74,7 +75,6 @@ public class Arm {
     {
         if (position >= LIFT_LOWER_LIMIT && position <= LIFT_UPPER_LIMIT)// && isZeroed)
         {
-            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             lift.setTargetPosition(position);
         }
     }
@@ -104,7 +104,6 @@ public class Arm {
     {
         if (position >= EXTEND_LOWER_LIMIT && position <= EXTEND_UPPER_LIMIT)// && isZeroed)
         {
-            extend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             extend.setTargetPosition(position);
         }
     }

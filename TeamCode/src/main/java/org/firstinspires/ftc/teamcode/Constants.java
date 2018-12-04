@@ -8,7 +8,7 @@ public class Constants
     public static final int LIFT_LOWER_LIMIT = 0;
     public static final int LIFT_UPPER_LIMIT = 3500;
 
-    public static final int EXTEND_LOWER_LIMIT = 0;
+    public static final int EXTEND_LOWER_LIMIT = -3000;
     public static final int EXTEND_UPPER_LIMIT = 3000;
 
     public static final int TILT_LOWER_LIMIT = 0;

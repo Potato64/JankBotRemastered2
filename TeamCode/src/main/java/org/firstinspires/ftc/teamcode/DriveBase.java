@@ -115,7 +115,7 @@ public class DriveBase {
         }
     }
 
-    public void updateTelOp()
+    public void updateTeleOp()
     {
         double leftPower = speed - rotSpeed;
         double rightPower = speed + rotSpeed;

@@ -86,20 +86,20 @@ public class JankBot_TeleOP extends OpMode
         driveBase.setSpeed(driveOperator.speed());
         driveBase.setRotSpeed(driveOperator.rotSpeed());
 //        driveBase.update();
-        driveBase.updateTelOp();
+        driveBase.updateTeleOp();
 
         if (mechOperator.climb())
         {
             arm.ascend();
         }
 
+        mechOperator.giveLiftPos(arm.getLiftPostition());
+        mechOperator.giveExtendPos(arm.getExtendPostion());
+
         arm.setLiftPosition(mechOperator.liftPosition());
         arm.setExtendPostion(mechOperator.extendPosition());
 
         arm.intake.setTiltPosition(mechOperator.tiltIntakePosition());
-
-        mechOperator.giveLiftPos(arm.getLiftPostition());
-        mechOperator.giveExtendPos(arm.getExtendPostion());
 
         if (mechOperator.runIntake())
         {

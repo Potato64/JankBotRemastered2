@@ -77,7 +77,7 @@ public class MechEthan implements MechOperator
                 return EXTEND_LOWER_LIMIT;
             }
         }
-        else if (gamepad.left_stick_y < 0) //if extending arm
+        else if (gamepad.right_stick_y < 0) //if extending arm
         {
             if (currentLiftPos < EXTEND_UPPER_LIMIT)
             {
@@ -90,8 +90,7 @@ public class MechEthan implements MechOperator
         }
         else //if stick not pushed
         {
-//            return currentExtendPos;
-            return 50;
+            return currentExtendPos;
         }
     }
 
