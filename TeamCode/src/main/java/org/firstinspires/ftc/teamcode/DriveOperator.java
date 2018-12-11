@@ -5,4 +5,6 @@ public interface DriveOperator
     public double speed();
 
     public double rotSpeed();
+
+    public double direction();
 }

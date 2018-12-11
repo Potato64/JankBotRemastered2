@@ -8,20 +8,37 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
+import java.util.List;
+
+// Gets gold, then deploys marker
 @Autonomous(name="AutoOP", group="Linear Opmode")
 public class JankBot_AutoOP extends LinearOpMode
 {
+    private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
+    private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
+    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
+
+    private static final String VUFORIA_KEY = "AXwhG3X/////AAAAGeyrECmhIEnMtx00hFsdD204jVm8PsOfnpnVu7sU9FQnzbhyt14ohqXYBSOB2xsEM11XgvKUZE5Ht" +
+            "TvnoQ7JNknNvg9GtTt9P+LCq/TNS3pam2n8FfmzKypVR5M2PZQ/d9MhR0AfHwJa+UE7G0b8NevUKCya1wd+qwK3k5pTEaI81q6Z4iHVl+u1O0eICRG6bj+M2q36ZKtm" +
+            "/CQzcnmCSQYJhIDQsZL2/78EJiWUtO/GjVrEYoNwNLxCkiln6UQEKO4zWW6TcuwRMgO9f++DI3EDQdp9ads3vxh33/I38KirR/izKL8Wf0/qrqucbxv8B8QWh1tR8/ojvNN12Vc6ib1yyAqYrjz7hJ4jqFGJ2ADY";
+
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
     private Arm arm;
     private DriveBase base;
 
-    private PixyCam pixy;
+    private VuforiaLocalizer vuforia;
+    private TFObjectDetector tfod;
 
     @Override
     public void runOpMode()
@@ -37,22 +54,33 @@ public class JankBot_AutoOP extends LinearOpMode
                 hardwareMap.get(DcMotor.class, "right1"), hardwareMap.get(DcMotor.class, "right2"),
                 hardwareMap.get(BNO055IMU.class, "imu"));
 
-        pixy = new PixyCam(hardwareMap.get(I2cDeviceSynch.class, "pixy"));
+        initVuforia();
+
+        if (ClassFactory.getInstance().canCreateTFObjectDetector())
+        {
+            initTfod();
+        } 
+        else 
+        {
+            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+        }
 
         waitForStart();
 
-//        arm.zero();
-//        while (arm.zeroThread.isAlive())
-//        {
-//            if (!opModeIsActive())
-//            {
-//                arm.cancelZero();
-//            }
-//        }
+        /** Activate Tensor Flow Object Detection. */
+        if (tfod != null) 
+        {
+            tfod.activate();
+        }
 
         arm.descend();
 
-        base.setTargetHeading(pixy.firstBlockAngle());
+        while (opModeIsActive())
+        {
+            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+
+        }
+
         base.setSpeed(0.5);
 
         waitToDrive(1000);
@@ -81,5 +109,34 @@ public class JankBot_AutoOP extends LinearOpMode
         {
             base.update();
         }
+    }
+
+    /**
+     * Initialize the Vuforia localization engine.
+     */
+    private void initVuforia() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Loading trackables is not necessary for the Tensor Flow Object Detection engine.
+    }
+
+    /**
+     * Initialize the Tensor Flow Object Detection engine.
+     */
+    private void initTfod() {
+        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
 }
