@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import java.lang.Math.abs(x);
+import java.lang.Math.sqrt(x);
+import java.lang.Math.PI;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -101,13 +104,13 @@ public class DriveBase {
         double rightPower = speed + powerChange;
 
         //calculates the necessary power for the top left and back right wheels
-        double power1 = Math.sqrt(2) * Math.sin(direction + 3 * Math.PI / 4);
+        double power1 = sqrt(2) * Math.sin(direction + 3 * PI / 4);
         //calculates the necessary power for the top right and back left wheels
-        double power2 = Math.sqrt(2) * Math.cos(direction - Math.PI / 4);
+        double power2 = sqrt(2) * Math.cos(direction - PI / 4);
 
         //TODO make sure this still works
         //keeps maximum power at or below 1, as to keep the proportions correct.
-        double maxPower = (Math.abs(power1) > Math.abs(power2) ? Math.abs(power1) : Math.abs(power2)) * (Math.abs(speed) + Math.abs(powerChange));
+        double maxPower = (abs(power1) > abs(power2) ? abs(power1) : abs(power2)) * (abs(speed) + abs(powerChange));
         if (maxPower > 1)
         {
             leftPower /= maxPower;
@@ -132,11 +135,11 @@ public class DriveBase {
         double rightPower = speed + rotSpeed;
 
         //calculates the necessary power for the top left and back right wheels
-        double power1 = Math.sqrt(2) * Math.sin(direction + 3 * Math.PI / 4);
+        double power1 = sqrt(2) * Math.sin(direction + 3 * PI / 4);
         //calculates the necessary power for the top right and back left wheels
-        double power2 = Math.sqrt(2) * Math.cos(direction - Math.PI / 4);
+        double power2 = sqrt(2) * Math.cos(direction - PI / 4);
 
-        double maxPower = (Math.abs(power1) > Math.abs(power2) ? Math.abs(power1) : Math.abs(power2)) * (Math.abs(speed) + Math.abs(rotSpeed));
+        double maxPower = (abs(power1) > abs(power2) ? abs(power1) : abs(power2)) * (abs(speed) + abs(rotSpeed));
         if (maxPower > 1)
         {
             leftPower /= maxPower;
