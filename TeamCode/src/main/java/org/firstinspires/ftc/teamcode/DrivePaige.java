@@ -17,6 +17,11 @@ public class DrivePaige implements DriveOperator
         return -gamepad.left_stick_y;
     }
 
+    @Override double direction()
+    {
+        return 0;
+    }
+
     @Override
     public double rotSpeed()
     {

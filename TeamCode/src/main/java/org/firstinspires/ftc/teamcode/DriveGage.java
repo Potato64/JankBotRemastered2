@@ -14,7 +14,7 @@ public class DriveGage implements DriveOperator
     @Override
     public double speed()
     {
-        return -gamepad.left_stick_y;
+        return Math.sqrt(gamepad.left_stick_y * gamepad.left_stick_y + gamepad.left_stick_x * gamepad.left_stick_x);
     }
 
     @Override
@@ -22,4 +22,11 @@ public class DriveGage implements DriveOperator
     {
         return gamepad.right_stick_x;
     }
+
+    @Override
+    public double direction()
+    {
+        return (gamepad.left_stick_x > 0) ?
+            -Math.atan(-gamepad.left_stick_y / gamepad.left_stick_x) :
+            Math.atan(-gamepad.left_stick_y / gamepad.left_stick_x);
 }

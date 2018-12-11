@@ -107,7 +107,7 @@ public class DriveBase {
 
         //TODO make sure this still works
         //keeps maximum power at or below 1, as to keep the proportions correct.
-        double maxPower = Math.abs((power1 > power2 ? power1 : power2)) * (Math.abs(speed) + Math.abs(powerChange));
+        double maxPower = (Math.abs(power1) > Math.abs(power2) ? Math.abs(power1) : Math.abs(power2)) * (Math.abs(speed) + Math.abs(powerChange));
         if (maxPower > 1)
         {
             leftPower /= maxPower;
@@ -136,7 +136,7 @@ public class DriveBase {
         //calculates the necessary power for the top right and back left wheels
         double power2 = Math.sqrt(2) * Math.cos(direction - Math.PI / 4);
 
-        double maxPower = Math.abs((power1 > power2 ? power1 : power2)) * (Math.abs(speed) + Math.abs(rotSpeed));
+        double maxPower = (Math.abs(power1) > Math.abs(power2) ? Math.abs(power1) : Math.abs(power2)) * (Math.abs(speed) + Math.abs(rotSpeed));
         if (maxPower > 1)
         {
             leftPower /= maxPower;

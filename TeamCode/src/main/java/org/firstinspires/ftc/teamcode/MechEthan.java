@@ -8,15 +8,19 @@ import static org.firstinspires.ftc.teamcode.Constants.EXTEND_LOWER_LIMIT;
 import static org.firstinspires.ftc.teamcode.Constants.EXTEND_UPPER_LIMIT;
 import static org.firstinspires.ftc.teamcode.Constants.LIFT_LOWER_LIMIT;
 import static org.firstinspires.ftc.teamcode.Constants.LIFT_UPPER_LIMIT;
+import static org.firstinspires.ftc.teamcode.Constants.TILT_LOWER_LIMIT;
 import static org.firstinspires.ftc.teamcode.Constants.TILT_UPPER_LIMIT;
 
 public class MechEthan implements MechOperator
 {
     private final int MAX_LIFT_INCREMENT = 500;
     private final int MAX_EXTEND_INCREMENT = 200;
+    private final int MAX_TILT_INCREMENT = 50;
 
     private int currentLiftPos;
     private int currentExtendPos;
+
+    private int currentTiltPos;
 
     private boolean xTracker;
 
@@ -90,8 +94,7 @@ public class MechEthan implements MechOperator
         }
         else //if stick not pushed
         {
-//            return currentExtendPos;
-            return 50;
+            return currentExtendPos;
         }
     }
 
@@ -115,7 +118,32 @@ public class MechEthan implements MechOperator
     @Override
     public int tiltIntakePosition()
     {
-        return (int)(gamepad.left_trigger  * TILT_UPPER_LIMIT);
+        if (gamepad.left_trigger > 0) //if lowering intake
+        {
+            if (currentExtendPos < TILT_UPPER_LIMIT)
+            {
+                return currentTiltPos + (int)(gamepad.left_trigger * MAX_TILT_INCREMENT);
+            }
+            else
+            {
+                return TILT_UPPER_LIMIT;
+            }
+        }
+        else if (gamepad.right_trigger > 0) //if lifting intake
+        {
+            if (currentLiftPos > TILT_LOWER_LIMIT)
+            {
+                return currentExtendPos - (int)(gamepad.right_trigger * MAX_TILT_INCREMENT);
+            }
+            else
+            {
+                return TILT_LOWER_LIMIT;
+            }
+        }
+        else //if stick not pushed
+        {
+            return currentTiltPos;
+        }
     }
 
     @Override
