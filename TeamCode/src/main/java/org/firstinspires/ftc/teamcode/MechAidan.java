@@ -68,6 +68,12 @@ public class MechAidan implements MechOperator
     }
 
     @Override
+    public boolean isInLiftMode()
+    {
+        return false;
+    }
+
+    @Override
     public boolean climb()
     {
         return false;

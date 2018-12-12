@@ -169,6 +169,12 @@ public class MechEthan implements MechOperator
     }
 
     @Override
+    public boolean isInLiftMode()
+    {
+        return mode == ArmMode.Lift;
+    }
+
+    @Override
     public boolean climb()
     {
         return gamepad.y;

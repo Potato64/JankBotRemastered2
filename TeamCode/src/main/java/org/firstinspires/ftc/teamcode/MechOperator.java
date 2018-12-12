@@ -14,6 +14,8 @@ public interface MechOperator
 
     void toggleArmMode();
 
+    boolean isInLiftMode();
+
     boolean climb();
 
     void giveLiftPos(int pos);

@@ -93,7 +93,7 @@ public class DriveBase {
 
     public void setDirection(double direction)
     {
-        targetDirection = direction;
+        this.targetDirection = direction;
     }
 
     public void update()
