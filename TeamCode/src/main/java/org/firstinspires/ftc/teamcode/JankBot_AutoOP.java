@@ -77,28 +77,63 @@ public class JankBot_AutoOP extends LinearOpMode
 
         while (opModeIsActive())
         {
-            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-
+            List<Recognition> minerals = tfod.getUpdatedRecognitions();
+            
+            if (minerals != null)
+            {
+                for (Recognition mineral : minerals)
+                {
+                    if (mineral.getLabel().equals(LABEL_GOLD_MINERAL))
+                    {
+                        int goldPos = mineral.getLeft();
+                        break;
+                    }
+                }
+                
+                if (Math.abs(goldPos) < 0.5)
+                {
+                    break;
+                } 
+                else if (goldPos > 0)
+                {
+                    base.setDirection(-Math.PI / 2);
+                }
+                else
+                {
+                    base.setDirection(Math.PI / 2);
+                }
+  
+                base.setSpeed(0.5);
+            }
         }
 
+        base.setDirection(0);
         base.setSpeed(0.5);
 
-        waitToDrive(1000);
+//        waitToDrive(1000);
 
-        arm.intake.run();
+//        base.setSpeed(0);
 
-        waitToDrive(1000);
+//        arm.intake.setPosition(1000);
 
-        arm.intake.stop();
+//        arm.intake.run();
 
-        base.setSpeed(0);
-        base.setTargetHeading(-45);
+//        waitToDrive(1000);
+
+//        arm.intake.setPosition(0);
+
+//        waitToDrive(500);
+
+//        arm.intake.stop();
+
+//        base.setSpeed(0.5);
+        //base.setTargetHeading(-45);
 
         waitToDrive(3000);
 
         base.setSpeed(0);
 
-        //Deploy Marker
+        arm.intake.setPosition(500);
     }
 
     public void waitToDrive(int wait)
