@@ -41,7 +41,7 @@ public class MechEthan implements MechOperator
     {
         if (gamepad.left_stick_y > 0) //if lowering arm
         {
-            if (mode == ArmMode.Lift && currentLiftPos > LIFT_LOWER_LIMIT || mode == ArmMode.Climb && currentLiftPos > CLIMB_LOWER_LIMIT)
+            if (mode == ArmMode.Lift && currentLiftPos > LIFT_LOWER_LIMIT || mode == ArmMode.Climb && currentLiftPos > CLIMB_LOWER_LIMIT || gamepad.right_bumper)
             {
                 return currentLiftPos - (int) (gamepad.left_stick_y * MAX_LIFT_INCREMENT);
             }
@@ -52,7 +52,7 @@ public class MechEthan implements MechOperator
         }
         else if (gamepad.left_stick_y < 0) //if raising arm
         {
-            if (mode == ArmMode.Lift && currentLiftPos < LIFT_UPPER_LIMIT || mode == ArmMode.Climb && currentLiftPos < CLIMB_UPPER_LIMIT)
+            if (mode == ArmMode.Lift && currentLiftPos < LIFT_UPPER_LIMIT || mode == ArmMode.Climb && currentLiftPos < CLIMB_UPPER_LIMIT || gamepad.right_bumper)
             {
                 return currentLiftPos - (int) (gamepad.left_stick_y * MAX_LIFT_INCREMENT);
             }
@@ -72,7 +72,7 @@ public class MechEthan implements MechOperator
     {
         if (gamepad.right_stick_y > 0) //if contracting arm
         {
-            if (currentExtendPos > EXTEND_LOWER_LIMIT)
+            if (currentExtendPos > EXTEND_LOWER_LIMIT || gamepad.right_bumper)
             {
                 return currentExtendPos - (int) (gamepad.right_stick_y * MAX_EXTEND_INCREMENT);
             }
@@ -83,7 +83,7 @@ public class MechEthan implements MechOperator
         }
         else if (gamepad.right_stick_y < 0) //if extending arm
         {
-            if (currentLiftPos < EXTEND_UPPER_LIMIT)
+            if (currentLiftPos < EXTEND_UPPER_LIMIT || gamepad.right_bumper)
             {
                 return currentExtendPos - (int) (gamepad.right_stick_y * MAX_EXTEND_INCREMENT);
             }
@@ -110,12 +110,6 @@ public class MechEthan implements MechOperator
     }
 
     @Override
-    public boolean tiltResetEncoder()
-    {
-        return gamepad.left_bumper;
-    }
-
-    @Override
     public int tiltIntakePosition()
     {
         if (gamepad.left_trigger > 0) //if lowering intake
@@ -133,7 +127,7 @@ public class MechEthan implements MechOperator
         {
             if (currentLiftPos > TILT_LOWER_LIMIT)
             {
-                return currentExtendPos - (int)(gamepad.right_trigger * MAX_TILT_INCREMENT);
+                return currentTiltPos - (int)(gamepad.right_trigger * MAX_TILT_INCREMENT);
             }
             else
             {
@@ -156,6 +150,12 @@ public class MechEthan implements MechOperator
     public void giveExtendPos(int pos)
     {
         currentExtendPos = pos;
+    }
+
+    @Override
+    public void giveTiltPos(int pos)
+    {
+        currentTiltPos = pos;
     }
 
     @Override

@@ -42,7 +42,6 @@ public class Arm {
         this.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         this.extend = extend;
-        this.extend.setDirection(DcMotorSimple.Direction.REVERSE);
         this.extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.extend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 

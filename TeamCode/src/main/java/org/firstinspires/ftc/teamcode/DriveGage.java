@@ -27,6 +27,7 @@ public class DriveGage implements DriveOperator
     public double direction()
     {
         return (gamepad.left_stick_x > 0) ?
-            -Math.atan(-gamepad.left_stick_y / gamepad.left_stick_x) :
-            Math.atan(-gamepad.left_stick_y / gamepad.left_stick_x);
+                -Math.atan(-gamepad.left_stick_y / gamepad.left_stick_x) :
+                Math.atan(-gamepad.left_stick_y / gamepad.left_stick_x);
+    }
 }

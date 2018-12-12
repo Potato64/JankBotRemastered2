@@ -17,7 +17,8 @@ public class DrivePaige implements DriveOperator
         return -gamepad.left_stick_y;
     }
 
-    @Override double direction()
+    @Override
+    public double direction()
     {
         return 0;
     }

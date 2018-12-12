@@ -10,8 +10,6 @@ public interface MechOperator
 
     boolean reverseIntake();
 
-    boolean tiltResetEncoder();
-
     int tiltIntakePosition();
 
     void toggleArmMode();
@@ -21,4 +19,6 @@ public interface MechOperator
     void giveLiftPos(int pos);
 
     void giveExtendPos(int pos);
+
+    void giveTiltPos(int pos);
 }

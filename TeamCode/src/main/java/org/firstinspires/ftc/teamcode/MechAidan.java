@@ -38,12 +38,6 @@ public class MechAidan implements MechOperator
     }
 
     @Override
-    public boolean tiltResetEncoder()
-    {
-        return false;
-    }
-
-    @Override
     public int tiltIntakePosition()
     {
         return (int)(-gamepad.right_stick_y  * Constants.TILT_UPPER_LIMIT / 2 + Constants.TILT_UPPER_LIMIT / 2);
@@ -57,6 +51,12 @@ public class MechAidan implements MechOperator
 
     @Override
     public void giveExtendPos(int pos)
+    {
+
+    }
+
+    @Override
+    public void giveTiltPos(int pos)
     {
 
     }

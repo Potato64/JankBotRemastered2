@@ -5,18 +5,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Intake
 {
-    private CRServo leftWheel;
-    private CRServo rightWheel;
+    private CRServo leftRoller;
+    private CRServo rightRoller;
 
     private DcMotor tilt;
 
-    public Intake(CRServo leftWheel, CRServo rightWheel,
+    public Intake(CRServo leftRoller, CRServo rightRoller,
                   DcMotor tilt)
     {
-        this.leftWheel = leftWheel;
-        this.rightWheel = rightWheel;
+        this.leftRoller = leftRoller;
+        this.rightRoller = rightRoller;
 
-        this.leftWheel.setDirection(CRServo.Direction.REVERSE);
+        this.rightRoller.setDirection(CRServo.Direction.REVERSE);
 
         this.tilt = tilt;
         this.tilt.setDirection(DcMotor.Direction.REVERSE);
@@ -26,20 +26,20 @@ public class Intake
 
     public void run()
     {
-        leftWheel.setPower(1);
-        rightWheel.setPower(1);
+        leftRoller.setPower(1);
+        rightRoller.setPower(1);
     }
 
     public void reverse()
     {
-        leftWheel.setPower(-1);
-        rightWheel.setPower(-1);
+        leftRoller.setPower(-1);
+        rightRoller.setPower(-1);
     }
 
     public void stop()
     {
-        leftWheel.setPower(0);
-        rightWheel.setPower(0);
+        leftRoller.setPower(0);
+        rightRoller.setPower(0);
     }
 
     public void setTiltPosition(int pos)
