@@ -12,10 +12,6 @@ public interface MechOperator
 
     int tiltIntakePosition();
 
-    void toggleArmMode();
-
-    boolean isInLiftMode();
-
     boolean climb();
 
     void giveLiftPos(int pos);

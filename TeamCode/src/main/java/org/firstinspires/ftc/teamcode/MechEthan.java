@@ -22,46 +22,21 @@ public class MechEthan implements MechOperator
 
     private int currentTiltPos;
 
-    private boolean xTracker;
-
     private Gamepad gamepad;
-
-    private ArmMode mode;
 
     public MechEthan(Gamepad gamepad)
     {
         this.gamepad = gamepad;
-
-        mode = ArmMode.Lift;
-        xTracker = false;
     }
 
     @Override
     public int liftPosition()
     {
-        if (gamepad.left_stick_y > 0) //if lowering arm
+        if (gamepad.left_stick_y != 0) //if moving arm
         {
-            if (mode == ArmMode.Lift && currentLiftPos > LIFT_LOWER_LIMIT || mode == ArmMode.Climb && currentLiftPos > CLIMB_LOWER_LIMIT || gamepad.right_bumper)
-            {
-                return currentLiftPos - (int) (gamepad.left_stick_y * MAX_LIFT_INCREMENT);
-            }
-            else
-            {
-                return (mode == ArmMode.Lift) ? LIFT_LOWER_LIMIT : CLIMB_LOWER_LIMIT;
-            }
+            return currentLiftPos - (int) (gamepad.left_stick_y * MAX_LIFT_INCREMENT);
         }
-        else if (gamepad.left_stick_y < 0) //if raising arm
-        {
-            if (mode == ArmMode.Lift && currentLiftPos < LIFT_UPPER_LIMIT || mode == ArmMode.Climb && currentLiftPos < CLIMB_UPPER_LIMIT || gamepad.right_bumper)
-            {
-                return currentLiftPos - (int) (gamepad.left_stick_y * MAX_LIFT_INCREMENT);
-            }
-            else
-            {
-                return (mode == ArmMode.Lift) ? LIFT_UPPER_LIMIT : CLIMB_UPPER_LIMIT;
-            }
-        }
-        else //if stick not pushed
+        else //hold current position
         {
             return currentLiftPos;
         }
@@ -70,29 +45,11 @@ public class MechEthan implements MechOperator
     @Override
     public int extendPosition()
     {
-        if (gamepad.right_stick_y > 0) //if contracting arm
+        if (gamepad.right_stick_y != 0) //if contracting or expanding arm
         {
-            if (currentExtendPos > EXTEND_LOWER_LIMIT || gamepad.right_bumper)
-            {
-                return currentExtendPos - (int) (gamepad.right_stick_y * MAX_EXTEND_INCREMENT);
-            }
-            else
-            {
-                return EXTEND_LOWER_LIMIT;
-            }
+            return currentExtendPos - (int) (gamepad.right_stick_y * MAX_EXTEND_INCREMENT);
         }
-        else if (gamepad.right_stick_y < 0) //if extending arm
-        {
-            if (currentLiftPos < EXTEND_UPPER_LIMIT || gamepad.right_bumper)
-            {
-                return currentExtendPos - (int) (gamepad.right_stick_y * MAX_EXTEND_INCREMENT);
-            }
-            else
-            {
-                return EXTEND_UPPER_LIMIT;
-            }
-        }
-        else //if stick not pushed
+        else //hold current extension
         {
             return currentExtendPos;
         }
@@ -114,27 +71,13 @@ public class MechEthan implements MechOperator
     {
         if (gamepad.left_trigger > 0) //if lowering intake
         {
-            if (currentExtendPos < TILT_UPPER_LIMIT)
-            {
-                return currentTiltPos + (int)(gamepad.left_trigger * MAX_TILT_INCREMENT);
-            }
-            else
-            {
-                return TILT_UPPER_LIMIT;
-            }
+            return currentTiltPos + (int)(gamepad.left_trigger * MAX_TILT_INCREMENT);
         }
         else if (gamepad.right_trigger > 0) //if lifting intake
         {
-            if (currentLiftPos > TILT_LOWER_LIMIT)
-            {
-                return currentTiltPos - (int)(gamepad.right_trigger * MAX_TILT_INCREMENT);
-            }
-            else
-            {
-                return TILT_LOWER_LIMIT;
-            }
+            return currentTiltPos - (int)(gamepad.right_trigger * MAX_TILT_INCREMENT);
         }
-        else //if stick not pushed
+        else //hold intake position
         {
             return currentTiltPos;
         }
@@ -156,22 +99,6 @@ public class MechEthan implements MechOperator
     public void giveTiltPos(int pos)
     {
         currentTiltPos = pos;
-    }
-
-    @Override
-    public void toggleArmMode()
-    {
-        if (!xTracker && gamepad.x)
-        {
-            mode = (mode == ArmMode.Lift) ? ArmMode.Climb : ArmMode.Lift;
-        }
-        xTracker = gamepad.x;
-    }
-
-    @Override
-    public boolean isInLiftMode()
-    {
-        return mode == ArmMode.Lift;
     }
 
     @Override
