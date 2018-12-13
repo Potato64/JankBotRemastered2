@@ -44,8 +44,6 @@ public class JankBot_TeleOP extends OpMode
                 hardwareMap.get(DcMotor.class, "right1"), hardwareMap.get(DcMotor.class, "right2"),
                 hardwareMap.get(BNO055IMU.class, "imu"));
 
-        pixy = hardwareMap.get(I2cDeviceSynch.class, "pixy");
-
         telemetry.addData("Status", "Initialized");
     }
 

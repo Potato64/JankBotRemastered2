@@ -38,8 +38,6 @@ public class JankBot_AutoOP3 extends LinearOpMode
                 hardwareMap.get(DcMotor.class, "right1"), hardwareMap.get(DcMotor.class, "right2"),
                 hardwareMap.get(BNO055IMU.class, "imu"));
 
-        pixy = new PixyCam(hardwareMap.get(I2cDeviceSynch.class, "pixy"));
-
         waitForStart();
 
         base.setSpeed(0.5);

@@ -41,7 +41,7 @@ public class DriveBase {
         this.right1 = right1;
         this.right2 = right2;
 
-        right1.setDirection(DcMotorSimple.Direction.REVERSE);
+        left1.setDirection(DcMotorSimple.Direction.REVERSE);
         left2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -108,7 +108,7 @@ public class DriveBase {
         //calculates the necessary power for the top left and back right wheels
         double power1 = sqrt(2) * Math.sin(targetDirection - PI / 4);
         //calculates the necessary power for the top right and back left wheels
-        double power2 = sqrt(2) * Math.cos(targetDirection - 3 * PI / 4);
+        double power2 = sqrt(2) * Math.cos(targetDirection + PI / 4);
 
         //TODO make sure this still works
         //keeps maximum power at or below 1, as to keep the proportions correct.
