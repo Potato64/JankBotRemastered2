@@ -119,6 +119,7 @@ public class JankBot_TeleOP extends OpMode
         telemetry.addData("tiltPos", arm.intake.getTiltPosition());
         telemetry.addData("liftPos", arm.getLiftPostition());
         telemetry.addData("extendPos", arm.getExtendPostion());
+        telemetry.addData("direction", driveOperator.direction());
     }
 
     /*

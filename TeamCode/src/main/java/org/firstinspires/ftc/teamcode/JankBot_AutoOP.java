@@ -81,13 +81,20 @@ public class JankBot_AutoOP extends LinearOpMode
             
             if (minerals != null)
             {
+                Double goldPos = null;
+
                 for (Recognition mineral : minerals)
                 {
                     if (mineral.getLabel().equals(LABEL_GOLD_MINERAL))
                     {
-                        int goldPos = mineral.getLeft();
+                        goldPos = (double)mineral.getLeft();
                         break;
                     }
+                }
+
+                if (goldPos == null)
+                {
+                    continue;
                 }
                 
                 if (Math.abs(goldPos) < 0.5)
@@ -133,7 +140,7 @@ public class JankBot_AutoOP extends LinearOpMode
 
         base.setSpeed(0);
 
-        arm.intake.setPosition(500);
+        arm.intake.setTiltPosition(500);
     }
 
     public void waitToDrive(int wait)

@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import static java.lang.Math.PI;
+import static java.lang.Math.atan;
+
 public class DriveGage implements DriveOperator
 {
     private Gamepad gamepad;
@@ -26,8 +29,17 @@ public class DriveGage implements DriveOperator
     @Override
     public double direction()
     {
-        return (gamepad.left_stick_x > 0) ?
-                -Math.atan(-gamepad.left_stick_y / gamepad.left_stick_x) :
-                Math.atan(-gamepad.left_stick_y / gamepad.left_stick_x);
+        if (gamepad.left_stick_x == 0)
+        {
+            return gamepad.left_stick_y < 0 ?
+                    PI / 2 :
+                    3 * PI / 2;
+        }
+        else
+        {
+            return (gamepad.left_stick_x > 0) ?
+                    atan(-gamepad.left_stick_y / gamepad.left_stick_x) :
+                    atan(-gamepad.left_stick_y / gamepad.left_stick_x) + PI;
+        }
     }
 }
