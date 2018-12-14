@@ -18,12 +18,6 @@ public class DrivePaige implements DriveOperator
     }
 
     @Override
-    public double direction()
-    {
-        return 0;
-    }
-
-    @Override
     public double rotSpeed()
     {
         return gamepad.right_stick_x;

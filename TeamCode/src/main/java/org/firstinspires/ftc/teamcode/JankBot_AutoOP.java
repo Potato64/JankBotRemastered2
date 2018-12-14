@@ -75,6 +75,7 @@ public class JankBot_AutoOP extends LinearOpMode
 
         arm.descend();
 
+        base.setRotSpeed(0.5);
         while (opModeIsActive())
         {
             List<Recognition> minerals = tfod.getUpdatedRecognitions();
@@ -103,18 +104,18 @@ public class JankBot_AutoOP extends LinearOpMode
                 } 
                 else if (goldPos > 0)
                 {
-                    base.setDirection(-Math.PI / 2);
+                    base.setTargetHeading(base.getHeading() + 5);
                 }
                 else
                 {
-                    base.setDirection(Math.PI / 2);
+                    base.setTargetHeading(base.getHeading() - 5);
                 }
-  
-                base.setSpeed(0.5);
             }
+
+            base.update();
         }
 
-        base.setDirection(0);
+        base.setTargetHeading(base.getHeading());
         base.setSpeed(0.5);
 
 //        waitToDrive(1000);

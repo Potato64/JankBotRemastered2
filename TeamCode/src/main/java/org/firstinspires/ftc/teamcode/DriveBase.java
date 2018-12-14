@@ -30,7 +30,6 @@ public class DriveBase {
     private double speed;
     private double targetHeading;
     private double rotSpeed;
-    private double targetDirection;
 
     public DriveBase(DcMotor left1, DcMotor left2,
                 DcMotor right1, DcMotor right2,
@@ -41,8 +40,8 @@ public class DriveBase {
         this.right1 = right1;
         this.right2 = right2;
 
-        left2.setDirection(DcMotorSimple.Direction.REVERSE);
-        right1.setDirection(DcMotorSimple.Direction.REVERSE);
+        left1.setDirection(DcMotorSimple.Direction.REVERSE);
+        right2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -91,11 +90,6 @@ public class DriveBase {
         this.targetHeading = heading;
     }
 
-    public void setDirection(double direction)
-    {
-        this.targetDirection = direction;
-    }
-
     public void update()
     {
         //adjusts motor powers in order to maintain the correct heading
@@ -105,24 +99,18 @@ public class DriveBase {
         double leftPower = speed - powerChange;
         double rightPower = speed + powerChange;
 
-        //calculates the necessary power for the top left and back right wheels
-        double power1 = sqrt(2) * Math.sin(targetDirection - PI / 4);
-        //calculates the necessary power for the top right and back left wheels
-        double power2 = sqrt(2) * Math.cos(targetDirection + PI / 4);
-
-        //TODO make sure this still works
         //keeps maximum power at or below 1, as to keep the proportions correct.
-        double maxPower = (abs(power1) > abs(power2) ? abs(power1) : abs(power2)) * (abs(speed) + abs(powerChange));
+        double maxPower = abs(speed) + abs(powerChange);
         if (maxPower > 1)
         {
             leftPower /= maxPower;
             rightPower /= maxPower;
         }
 
-        left1.setPower(leftPower * power1);
-        left2.setPower(leftPower * power2);
-        right1.setPower(rightPower * power1);
-        right2.setPower(rightPower * power2);
+        left1.setPower(leftPower);
+        left2.setPower(leftPower);
+        right1.setPower(rightPower);
+        right2.setPower(rightPower);
 
         //if drivebase is supposed to keep rotating, adjust the target heading appropriately
         if (rotSpeed != 0)
@@ -136,24 +124,19 @@ public class DriveBase {
         double leftPower = speed - rotSpeed;
         double rightPower = speed + rotSpeed;
 
-        //calculates the necessary power for the top left and back right wheels
-        double power1 = sqrt(2) * Math.sin(targetDirection + 3 * PI / 4);
-        //calculates the necessary power for the top right and back left wheels
-        double power2 = sqrt(2) * Math.cos(targetDirection - PI / 4);
-
-        double maxPower = (abs(power1) > abs(power2) ? abs(power1) : abs(power2)) * (abs(speed) + abs(rotSpeed));
+        double maxPower = abs(speed) + abs(rotSpeed);
         if (maxPower > 1)
         {
             leftPower /= maxPower;
             rightPower /= maxPower;
         }
 
-        double strafeCof = abs(Math.sin(targetDirection + 3 * PI / 4) - Math.cos(targetDirection - PI / 4)) / 2;
+        //double strafeCof = abs(Math.sin(targetDirection + 3 * PI / 4) - Math.cos(targetDirection - PI / 4)) / 2;
 
-        left1.setPower(leftPower * power1);
-        left2.setPower(leftPower * power2 * strafeCof);
-        right1.setPower(rightPower * power1);
-        right2.setPower(rightPower * power2 * strafeCof);
+        left1.setPower(leftPower);
+        left2.setPower(leftPower);
+        right1.setPower(rightPower);
+        right2.setPower(rightPower);
 
         //if drivebase is supposed to keep rotating, adjust the target heading appropriately
         if (rotSpeed != 0)

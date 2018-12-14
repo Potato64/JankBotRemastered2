@@ -31,7 +31,7 @@ public class JankBot_TeleOP extends OpMode
     @Override
     public void init()
     {
-        driveOperator = new DriveGage(gamepad1);
+        driveOperator = new DrivePaige(gamepad1);
         mechOperator = new MechEthan(gamepad2);
 
         arm = new Arm(hardwareMap.get(DcMotor.class, "lift"), hardwareMap.get(DcMotor.class, "extend"),
@@ -83,8 +83,6 @@ public class JankBot_TeleOP extends OpMode
 
         driveBase.setSpeed(driveOperator.speed());
         driveBase.setRotSpeed(driveOperator.rotSpeed());
-        driveBase.setDirection(driveOperator.direction());
-//        driveBase.update();
         driveBase.updateTeleOp();
 
         mechOperator.giveLiftPos(arm.getLiftPostition());
@@ -98,7 +96,14 @@ public class JankBot_TeleOP extends OpMode
 
         if (mechOperator.toggleLatch())
         {
-            arm.latch.
+            if (arm.latch.isReleased())
+            {
+                arm.latch.unrelease();
+            }
+            else
+            {
+                arm.latch.release();
+            }
         }
 
         if (mechOperator.runIntake())
@@ -117,7 +122,6 @@ public class JankBot_TeleOP extends OpMode
         telemetry.addData("tiltPos", arm.intake.getTiltPosition());
         telemetry.addData("liftPos", arm.getLiftPostition());
         telemetry.addData("extendPos", arm.getExtendPostion());
-        telemetry.addData("direction", driveOperator.direction());
     }
 
     /*
