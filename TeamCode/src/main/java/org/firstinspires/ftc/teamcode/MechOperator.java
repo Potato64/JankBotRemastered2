@@ -10,9 +10,9 @@ public interface MechOperator
 
     boolean reverseIntake();
 
-    int tiltIntakePosition();
+    boolean toggleLatch();
 
-    boolean climb();
+    int tiltIntakePosition();
 
     void giveLiftPos(int pos);
 

@@ -4,18 +4,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import static java.lang.Thread.sleep;
+import static org.firstinspires.ftc.teamcode.Constants.LATCH_LOWER_LIMIT;
+import static org.firstinspires.ftc.teamcode.Constants.LATCH_UPPER_LIMIT;
 
 public class Latch {
-
-    private final double openLimit = 0;
-    private final double closedLimit = 0.5;
 
     private Servo release;
 
     public Latch(Servo release)
     {
         this.release = release;
-        this.release.scaleRange(openLimit, closedLimit);
+        this.release.scaleRange(LATCH_LOWER_LIMIT, LATCH_UPPER_LIMIT);
 
     }
 
@@ -27,5 +26,10 @@ public class Latch {
     public void unrelease()
     {
         release.setPosition(1);
+    }
+
+    public boolean isReleased()
+    {
+        return release.getPosition() > 0.5;
     }
 }

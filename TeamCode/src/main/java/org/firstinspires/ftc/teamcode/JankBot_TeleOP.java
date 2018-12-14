@@ -65,9 +65,9 @@ public class JankBot_TeleOP extends OpMode
 
         runtime.reset();
         arm.setLiftPower(1);
-        arm.setExtendPower(0.5);
+        arm.setExtendPower(1);
 
-        arm.intake.setTiltPower(0.25);
+        arm.intake.setTiltPower(1);
     }
 
     /*
@@ -87,11 +87,6 @@ public class JankBot_TeleOP extends OpMode
 //        driveBase.update();
         driveBase.updateTeleOp();
 
-        if (mechOperator.climb())
-        {
-            arm.ascend();
-        }
-
         mechOperator.giveLiftPos(arm.getLiftPostition());
         mechOperator.giveExtendPos(arm.getExtendPostion());
         mechOperator.giveTiltPos(arm.intake.getTiltPosition());
@@ -100,6 +95,11 @@ public class JankBot_TeleOP extends OpMode
         arm.setExtendPostion(mechOperator.extendPosition());
 
         arm.intake.setTiltPosition(mechOperator.tiltIntakePosition());
+
+        if (mechOperator.toggleLatch())
+        {
+            arm.latch.
+        }
 
         if (mechOperator.runIntake())
         {

@@ -13,4 +13,7 @@ public class Constants
 
     public static final int TILT_LOWER_LIMIT = 0;
     public static final int TILT_UPPER_LIMIT = 1000;
+
+    public static final double LATCH_LOWER_LIMIT = 0;
+    public static final double LATCH_UPPER_LIMIT = 0.5;
 }

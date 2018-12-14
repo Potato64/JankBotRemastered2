@@ -2,15 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import static org.firstinspires.ftc.teamcode.Constants.CLIMB_LOWER_LIMIT;
-import static org.firstinspires.ftc.teamcode.Constants.CLIMB_UPPER_LIMIT;
-import static org.firstinspires.ftc.teamcode.Constants.EXTEND_LOWER_LIMIT;
-import static org.firstinspires.ftc.teamcode.Constants.EXTEND_UPPER_LIMIT;
-import static org.firstinspires.ftc.teamcode.Constants.LIFT_LOWER_LIMIT;
-import static org.firstinspires.ftc.teamcode.Constants.LIFT_UPPER_LIMIT;
-import static org.firstinspires.ftc.teamcode.Constants.TILT_LOWER_LIMIT;
-import static org.firstinspires.ftc.teamcode.Constants.TILT_UPPER_LIMIT;
-
 public class MechEthan implements MechOperator
 {
     private final int MAX_LIFT_INCREMENT = 500;
@@ -22,11 +13,15 @@ public class MechEthan implements MechOperator
 
     private int currentTiltPos;
 
+    private boolean xTracker;
+
     private Gamepad gamepad;
 
     public MechEthan(Gamepad gamepad)
     {
         this.gamepad = gamepad;
+
+        xTracker = false;
     }
 
     @Override
@@ -67,6 +62,18 @@ public class MechEthan implements MechOperator
     }
 
     @Override
+    public boolean toggleLatch()
+    {
+        if (gamepad.x && !xTracker)
+        {
+            return xTracker = true;
+        }
+
+        xTracker = gamepad.x;
+        return false;
+    }
+
+    @Override
     public int tiltIntakePosition()
     {
         if (gamepad.left_trigger > 0) //if lowering intake
@@ -101,9 +108,4 @@ public class MechEthan implements MechOperator
         currentTiltPos = pos;
     }
 
-    @Override
-    public boolean climb()
-    {
-        return gamepad.y;
-    }
 }

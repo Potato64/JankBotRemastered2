@@ -41,8 +41,8 @@ public class DriveBase {
         this.right1 = right1;
         this.right2 = right2;
 
-        left1.setDirection(DcMotorSimple.Direction.REVERSE);
         left2.setDirection(DcMotorSimple.Direction.REVERSE);
+        right1.setDirection(DcMotorSimple.Direction.REVERSE);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -148,10 +148,12 @@ public class DriveBase {
             rightPower /= maxPower;
         }
 
+        double strafeCof = abs(Math.sin(targetDirection + 3 * PI / 4) - Math.cos(targetDirection - PI / 4)) / 2;
+
         left1.setPower(leftPower * power1);
-        left2.setPower(leftPower * power2);
+        left2.setPower(leftPower * power2 * strafeCof);
         right1.setPower(rightPower * power1);
-        right2.setPower(rightPower * power2);
+        right2.setPower(rightPower * power2 * strafeCof);
 
         //if drivebase is supposed to keep rotating, adjust the target heading appropriately
         if (rotSpeed != 0)
