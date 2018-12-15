@@ -68,6 +68,8 @@ public class JankBot_TeleOP extends OpMode
         arm.setExtendPower(1);
 
         arm.intake.setTiltPower(1);
+
+        arm.latch.release();
     }
 
     /*
@@ -122,6 +124,7 @@ public class JankBot_TeleOP extends OpMode
         telemetry.addData("tiltPos", arm.intake.getTiltPosition());
         telemetry.addData("liftPos", arm.getLiftPostition());
         telemetry.addData("extendPos", arm.getExtendPostion());
+        telemetry.addData("isReleased():", arm.latch.isReleased());
     }
 
     /*

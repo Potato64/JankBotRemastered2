@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-// Gets gold, then deploys marker
+// Gets gold, then deploys marker, then goes to same crater
 @Autonomous(name="AutoOP", group="Linear Opmode")
 public class JankBot_AutoOP extends LinearOpMode
 {
@@ -74,6 +74,10 @@ public class JankBot_AutoOP extends LinearOpMode
         }
 
         arm.descend();
+
+        base.setSpeed(0.5);
+
+        waitToDrive(500);
 
         base.setRotSpeed(0.5);
         while (opModeIsActive())

@@ -72,10 +72,11 @@ public class Arm {
 
     public void setLiftPosition(int position)
     {
-        if (position >= LIFT_LOWER_LIMIT && position <= LIFT_UPPER_LIMIT)// && isZeroed)
-        {
-            lift.setTargetPosition(position);
-        }
+//        if (position >= LIFT_LOWER_LIMIT && position <= LIFT_UPPER_LIMIT)// && isZeroed)
+//        {
+//            lift.setTargetPosition(position);
+//        }
+        lift.setTargetPosition(position);
     }
 
     public int getLiftPostition()
@@ -101,10 +102,11 @@ public class Arm {
 
     public void setExtendPostion(int position)
     {
-        if (position >= EXTEND_LOWER_LIMIT && position <= EXTEND_UPPER_LIMIT)// && isZeroed)
-        {
-            extend.setTargetPosition(position);
-        }
+//        if (position >= EXTEND_LOWER_LIMIT && position <= EXTEND_UPPER_LIMIT)// && isZeroed)
+//        {
+//            extend.setTargetPosition(position);
+//        }
+        extend.setTargetPosition(position);
     }
 
     public int getExtendPostion()
@@ -158,7 +160,9 @@ public class Arm {
 
     public void descend()
     {
-        lift.setTargetPosition(LIFT_UPPER_LIMIT);
+        latch.unrelease();
+
+        lift.setTargetPosition(-3000);
         try
         {
             sleep(3000);

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import static java.lang.Thread.sleep;
 import static org.firstinspires.ftc.teamcode.Constants.LATCH_LOWER_LIMIT;
+import static org.firstinspires.ftc.teamcode.Constants.LATCH_MID;
 import static org.firstinspires.ftc.teamcode.Constants.LATCH_UPPER_LIMIT;
 
 public class Latch {
@@ -14,22 +15,20 @@ public class Latch {
     public Latch(Servo release)
     {
         this.release = release;
-        this.release.scaleRange(LATCH_LOWER_LIMIT, LATCH_UPPER_LIMIT);
-
     }
 
     public void release()
     {
-        release.setPosition(0);
+        release.setPosition(LATCH_LOWER_LIMIT);
     }
 
     public void unrelease()
     {
-        release.setPosition(1);
+        release.setPosition(LATCH_UPPER_LIMIT);
     }
 
     public boolean isReleased()
     {
-        return release.getPosition() > 0.5;
+        return release.getPosition() < LATCH_MID;
     }
 }

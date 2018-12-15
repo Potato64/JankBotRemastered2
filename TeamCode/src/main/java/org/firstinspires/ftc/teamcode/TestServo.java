@@ -13,12 +13,13 @@ public class TestServo extends OpMode
     @Override
     public void init()
     {
-        servo = hardwareMap.get(Servo.class, "lockServo");
+        servo = hardwareMap.get(Servo.class, "releaseLatch");
     }
 
     @Override
     public void loop()
     {
         servo.setPosition(gamepad1.left_trigger);
+        telemetry.addData("pos:", servo.getPosition());
     }
 }
