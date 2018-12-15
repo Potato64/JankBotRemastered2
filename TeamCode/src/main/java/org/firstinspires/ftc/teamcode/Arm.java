@@ -162,7 +162,8 @@ public class Arm {
     {
         latch.unrelease();
 
-        lift.setTargetPosition(-10000);
+        lift.setTargetPosition(-6000);
+        lift.setPower(1);
         try
         {
             sleep(3000);
