@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-//starts facing crater, knocks left mineral, goes straight to depot,
-//deploys marker, goes to crater
+//starts facing same crater, knocks left mineral, goes straight to depot,
+//deploys marker, goes to same crater
 @Autonomous(name="AutoOP4", group="Linear Opmode")
 public class JankBot_AutoOP4 extends LinearOpMode
 {

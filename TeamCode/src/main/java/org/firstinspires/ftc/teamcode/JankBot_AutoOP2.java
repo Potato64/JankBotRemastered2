@@ -4,17 +4,15 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-//starts facing crater, knocks off center mineral, goes to same crater
-@Autonomous(name="AutoOP3", group="Linear Opmode")
-public class JankBot_AutoOP3 extends LinearOpMode
+//lands, starts facing crater, knocks off center mineral, goes to same crater
+@Autonomous(name="AutoOP2", group="Linear Opmode")
+public class JankBot_AutoOP2 extends LinearOpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -38,9 +36,16 @@ public class JankBot_AutoOP3 extends LinearOpMode
 
         waitForStart();
 
+        arm.setLiftMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setLiftMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        arm.descend();
+
         base.setSpeed(0.5);
 
         waitToDrive(3000);
+
+        arm.intake.setTiltPosition(1000);
     }
 
     public void wait(int wait)

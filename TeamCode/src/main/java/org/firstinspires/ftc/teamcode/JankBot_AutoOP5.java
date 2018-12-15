@@ -22,8 +22,6 @@ public class JankBot_AutoOP5 extends LinearOpMode
     private Arm arm;
     private DriveBase base;
 
-    private PixyCam pixy;
-
     @Override
     public void runOpMode()
     {
