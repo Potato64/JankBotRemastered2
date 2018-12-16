@@ -39,13 +39,20 @@ public class JankBot_AutoOP2 extends LinearOpMode
         arm.setLiftMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setLiftMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        arm.descend();
+//        arm.descend();
 
         base.setSpeed(0.5);
 
-        waitToDrive(3000);
+        waitToDrive(4000);
+
+        base.setSpeed(0);
+
+        base.updateTeleOp();
 
         arm.intake.setTiltPosition(1000);
+        arm.intake.setTiltPower(0.5);
+
+        wait(1000);
     }
 
     public void wait(int wait)
@@ -61,7 +68,7 @@ public class JankBot_AutoOP2 extends LinearOpMode
 
         while(System.currentTimeMillis() - start <= wait && opModeIsActive())
         {
-            base.update();
+            base.updateTeleOp();
         }
     }
 }

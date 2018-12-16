@@ -162,7 +162,7 @@ public class Arm {
     {
         latch.unrelease();
 
-        lift.setTargetPosition(-7000);
+        lift.setTargetPosition(-7500);
         lift.setPower(1);
         try
         {
@@ -182,6 +182,11 @@ public class Arm {
         {
             e.printStackTrace();
         }
+    }
+
+    public boolean isLiftBusy()
+    {
+        return lift.isBusy();
     }
 
 //    public void zero()
