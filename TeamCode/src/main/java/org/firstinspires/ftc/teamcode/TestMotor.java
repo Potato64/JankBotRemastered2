@@ -25,7 +25,7 @@ public class TestMotor extends OpMode
     public void init()
     {
         motor = hardwareMap.get(DcMotor.class, "extend");
-        motor2 = hardwareMap.get(DcMotor.class, "lift");
+//        motor2 = hardwareMap.get(DcMotor.class, "lift");
 
 //        arm = new Arm(hardwareMap.get(DcMotor.class, "lift"), hardwareMap.get(DcMotor.class, "extend"),
 //                hardwareMap.get(DigitalChannel.class, "liftLimit"), hardwareMap.get(DigitalChannel.class, "extendLimit"),
@@ -51,14 +51,14 @@ public class TestMotor extends OpMode
     {
         runtime.reset();
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //
-//        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //
-        motor.setPower(0.5);
-        motor2.setPower(0.5);
+//        motor.setPower(0.5);
+//        motor2.setPower(0.5);
     }
 
     /*
@@ -67,12 +67,12 @@ public class TestMotor extends OpMode
     @Override
     public void loop()
     {
-        motor.setTargetPosition((int)(-gamepad1.left_stick_y * 3000));
-        motor2.setTargetPosition((int)(-gamepad1.right_stick_y * 3000));
-//        motor.setPower(-gamepad1.left_stick_y);
+//        motor.setTargetPosition((int)(-gamepad1.left_stick_y * 3000));
+//        motor2.setTargetPosition((int)(-gamepad1.right_stick_y * 3000));
+        motor.setPower(-gamepad1.left_stick_y);
 //        motor2.setPower(-gamepad1.right_stick_y);
 
         telemetry.addData("Ticks: ", motor.getCurrentPosition());
-        telemetry.addData("Ticks2: ", motor2.getCurrentPosition());
+//        telemetry.addData("Ticks2: ", motor2.getCurrentPosition());
     }
 }

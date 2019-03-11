@@ -1,6 +1,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.hardware.camera2.CameraDevice;
+import android.os.Environment;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -27,9 +30,12 @@ public class JankBot_AutoOP extends LinearOpMode
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
 
-    private static final String VUFORIA_KEY = "AXwhG3X/////AAAAGeyrECmhIEnMtx00hFsdD204jVm8PsOfnpnVu7sU9FQnzbhyt14ohqXYBSOB2xsEM11XgvKUZE5Ht" +
-            "TvnoQ7JNknNvg9GtTt9P+LCq/TNS3pam2n8FfmzKypVR5M2PZQ/d9MhR0AfHwJa+UE7G0b8NevUKCya1wd+qwK3k5pTEaI81q6Z4iHVl+u1O0eICRG6bj+M2q36ZKtm" +
-            "/CQzcnmCSQYJhIDQsZL2/78EJiWUtO/GjVrEYoNwNLxCkiln6UQEKO4zWW6TcuwRMgO9f++DI3EDQdp9ads3vxh33/I38KirR/izKL8Wf0/qrqucbxv8B8QWh1tR8/ojvNN12Vc6ib1yyAqYrjz7hJ4jqFGJ2ADY";
+    private static final String VUFORIA_KEY = "AdcmR0H/////AAABmX5FCuasR0WJva" +
+            "W+WfKBZZY4Mkmr39mE5zeNXTSqAfbDNYf8W53AS1tK2Fgrwh1kN/CVmyZnbLlKxrn" +
+            "I9kDObs2/9mddaFBkwb7TCKrCo4Cy/kqF85YWtWYekU3EqHzuMNvw1OonPzQJ7kjgB" +
+            "hszai3nQKg5bN2dd8NBPFpScozkSlvIUrWFvbj20K1K7kQ3JjgMreeSNldB12C+Zeee" +
+            "Ui9IVDBqfkcBOszPh0HvSMBGX3IkIkac56/UcTFbaa/GNWTwZtrVshjnypXm15Y1d62E" +
+            "hg9G8wNHFMwhvzHqfGvLA++K7x/dCtB+iaPE7WNxom4RaE+UYJ8kDjbpjrbtiXPuqUN9+SbCwQK6IN86vAer";
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -48,7 +54,7 @@ public class JankBot_AutoOP extends LinearOpMode
                 hardwareMap.get(DigitalChannel.class, "liftLimit"), hardwareMap.get(DigitalChannel.class, "extendLimit"),
                 hardwareMap.get(CRServo.class, "leftWheelIntake"), hardwareMap.get(CRServo.class, "rightWheelIntake"),
                 hardwareMap.get(DcMotor.class, "tiltIntake"),
-                hardwareMap.get(Servo.class, "releaseLatch"));
+                hardwareMap.get(Servo.class, "leftRelease"), hardwareMap.get(Servo.class, "rightRelease"));
 
         base = new DriveBase(hardwareMap.get(DcMotor.class, "left1"), hardwareMap.get(DcMotor.class, "left1"),
                 hardwareMap.get(DcMotor.class, "right1"), hardwareMap.get(DcMotor.class, "right2"),
@@ -65,6 +71,7 @@ public class JankBot_AutoOP extends LinearOpMode
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
 
+        telemetry.addData("Ready!", true);
         waitForStart();
 
         /** Activate Tensor Flow Object Detection. */
@@ -73,7 +80,7 @@ public class JankBot_AutoOP extends LinearOpMode
             tfod.activate();
         }
 
-        arm.descend();
+//        arm.descend();
 
         base.setSpeed(0.5);
 
@@ -101,19 +108,26 @@ public class JankBot_AutoOP extends LinearOpMode
                 {
                     continue;
                 }
+
+                if (!opModeIsActive())
+                {
+                    break;
+                }
+
+                telemetry.addData("goldPos:", goldPos);
                 
                 if (Math.abs(goldPos) < 0.5)
                 {
                     break;
                 } 
-                else if (goldPos > 0)
-                {
-                    base.setTargetHeading(base.getHeading() + 5);
-                }
-                else
-                {
-                    base.setTargetHeading(base.getHeading() - 5);
-                }
+//                else if (goldPos > 0)
+//                {
+//                    base.setTargetHeading(base.getHeading() - 1);
+//                }
+//                else
+//                {
+//                    base.setTargetHeading(base.getHeading() + 1);
+//                }
             }
 
             base.update();

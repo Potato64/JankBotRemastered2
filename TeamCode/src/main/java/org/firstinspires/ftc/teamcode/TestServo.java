@@ -13,7 +13,7 @@ public class TestServo extends OpMode
     @Override
     public void init()
     {
-        servo = hardwareMap.get(Servo.class, "releaseLatch");
+        servo = hardwareMap.get(Servo.class, "rightRelease");
     }
 
     @Override

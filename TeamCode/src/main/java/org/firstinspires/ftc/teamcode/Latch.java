@@ -4,31 +4,39 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import static java.lang.Thread.sleep;
-import static org.firstinspires.ftc.teamcode.Constants.LATCH_LOWER_LIMIT;
-import static org.firstinspires.ftc.teamcode.Constants.LATCH_MID;
-import static org.firstinspires.ftc.teamcode.Constants.LATCH_UPPER_LIMIT;
+import static org.firstinspires.ftc.teamcode.Constants.LEFT_LATCH_LOWER_LIMIT;
+import static org.firstinspires.ftc.teamcode.Constants.LEFT_LATCH_MID;
+import static org.firstinspires.ftc.teamcode.Constants.LEFT_LATCH_UPPER_LIMIT;
+import static org.firstinspires.ftc.teamcode.Constants.RIGHT_LATCH_LOWER_LIMIT;
+import static org.firstinspires.ftc.teamcode.Constants.RIGHT_LATCH_UPPER_LIMIT;
 
 public class Latch {
 
-    private Servo release;
+    private Servo leftRelease;
+    private Servo rightRelease;
 
-    public Latch(Servo release)
+    public Latch(Servo leftRelease, Servo rightRelease)
     {
-        this.release = release;
+        this.leftRelease = leftRelease;
+        this.rightRelease = rightRelease;
+
+        rightRelease.setDirection(Servo.Direction.REVERSE);
     }
 
     public void release()
     {
-        release.setPosition(LATCH_LOWER_LIMIT);
+        leftRelease.setPosition(LEFT_LATCH_LOWER_LIMIT);
+        rightRelease.setPosition(RIGHT_LATCH_LOWER_LIMIT);
     }
 
     public void unrelease()
     {
-        release.setPosition(LATCH_UPPER_LIMIT);
+        leftRelease.setPosition(LEFT_LATCH_UPPER_LIMIT);
+        rightRelease.setPosition(RIGHT_LATCH_UPPER_LIMIT);
     }
 
     public boolean isReleased()
     {
-        return release.getPosition() < LATCH_MID;
+        return leftRelease.getPosition() < LEFT_LATCH_MID;
     }
 }

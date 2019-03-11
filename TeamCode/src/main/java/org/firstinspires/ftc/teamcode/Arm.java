@@ -34,7 +34,7 @@ public class Arm {
 
     public Arm (DcMotor lift, DcMotor extend, DigitalChannel liftLimitSwitch, DigitalChannel extendLimitSwitch,
                 CRServo leftWheelIntake, CRServo rightWheelIntake, DcMotor tiltIntake,
-                Servo latchRelease)
+                Servo leftReleaseLatch, Servo rightReleaseLatch)
     {
         this.lift = lift;
         this.lift.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -49,7 +49,7 @@ public class Arm {
 //        this.extendLimitSwitch = extendLimitSwitch;
 
         intake = new Intake(leftWheelIntake, rightWheelIntake, tiltIntake);
-        latch = new Latch(latchRelease);
+        latch = new Latch(leftReleaseLatch, rightReleaseLatch);
 
         climbed = false;
     }
