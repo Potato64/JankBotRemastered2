@@ -1,8 +1,6 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import android.hardware.camera2.CameraDevice;
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -104,6 +102,8 @@ public class JankBot_AutoOP extends LinearOpMode
 
                 if (goldPos == null)
                 {
+                    base.setRotSpeed(0);
+                    base.update();
                     continue;
                 }
 
@@ -118,14 +118,14 @@ public class JankBot_AutoOP extends LinearOpMode
                 {
                     break;
                 } 
-//                else if (goldPos > 0)
-//                {
-//                    base.setTargetHeading(base.getHeading() - 1);
-//                }
-//                else
-//                {
-//                    base.setTargetHeading(base.getHeading() + 1);
-//                }
+                else if (goldPos > 0)
+                {
+                    base.setTargetHeading(base.getHeading() - 1);
+                }
+                else
+                {
+                    base.setTargetHeading(base.getHeading() + 1);
+                }
             }
 
             base.update();
