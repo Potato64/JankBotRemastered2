@@ -90,9 +90,11 @@ public class DriveBase {
         this.targetHeading = heading;
     }
 
+    //updates drive base with power values based on target headings/powers
     public void update()
     {
         //adjusts motor powers in order to maintain the correct heading
+        //uses proportional controller
         double error = getHeading() - targetHeading;
         double powerChange = error * rotKP;// + error * KI;
 
@@ -119,6 +121,7 @@ public class DriveBase {
         }
     }
 
+    //a seperate function to update base during teleOp, because you guys didn't like the niftiness of the heading control
     public void updateTeleOp()
     {
         double leftPower = speed + rotSpeed;

@@ -10,6 +10,9 @@ import static org.firstinspires.ftc.teamcode.Constants.LEFT_LATCH_UPPER_LIMIT;
 import static org.firstinspires.ftc.teamcode.Constants.RIGHT_LATCH_LOWER_LIMIT;
 import static org.firstinspires.ftc.teamcode.Constants.RIGHT_LATCH_UPPER_LIMIT;
 
+/**
+ * controls the latches
+ */
 public class Latch {
 
     private Servo leftRelease;

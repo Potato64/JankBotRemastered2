@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+//interface for changing mech operators.
 public interface MechOperator
 {
     int liftPosition();

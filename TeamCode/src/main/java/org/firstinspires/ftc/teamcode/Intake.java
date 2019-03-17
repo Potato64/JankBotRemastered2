@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+/**
+ * For the intake. the left roller is on the left. the right is on the right
+ */
 public class Intake
 {
     private CRServo leftRoller;

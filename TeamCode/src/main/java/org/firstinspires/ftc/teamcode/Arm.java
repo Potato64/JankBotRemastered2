@@ -32,6 +32,19 @@ public class Arm {
 //    public Thread zeroThread;
 //    private boolean cancel = false;
 
+    /**
+     * Controls the arm
+     *
+     * @param lift
+     * @param extend
+     * @param liftLimitSwitch
+     * @param extendLimitSwitch
+     * @param leftWheelIntake
+     * @param rightWheelIntake
+     * @param tiltIntake
+     * @param leftReleaseLatch
+     * @param rightReleaseLatch
+     */
     public Arm (DcMotor lift, DcMotor extend, DigitalChannel liftLimitSwitch, DigitalChannel extendLimitSwitch,
                 CRServo leftWheelIntake, CRServo rightWheelIntake, DcMotor tiltIntake,
                 Servo leftReleaseLatch, Servo rightReleaseLatch)
@@ -121,6 +134,7 @@ public class Arm {
         lift.setPower(0.5);
     }
 
+    //climbs lander. we don't use this
     public void ascend()
     {
         climbed = true;
@@ -158,6 +172,7 @@ public class Arm {
         }
     }
 
+    //descends from lander. Also not used
     public void descend()
     {
         latch.unrelease();
@@ -188,7 +203,7 @@ public class Arm {
     {
         return lift.isBusy();
     }
-
+//an early idea that is now abandoned
 //    public void zero()
 //    {
 //        //this creates its own thread so that it can be stopped with the OpMode

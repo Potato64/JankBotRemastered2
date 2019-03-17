@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 
+/**
+ * was going to use this, but didn't happen
+ */
 public class PixyCam
 {
     private I2cDeviceSynch pixy;

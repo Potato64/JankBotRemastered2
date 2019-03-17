@@ -78,15 +78,18 @@ public class JankBot_TeleOP extends OpMode
     @Override
     public void loop()
     {
+        //stops user control once arm.ascend() is called. We never do that, so this is useless.
         if (arm.climbed)
         {
             return;
         }
 
+        //controls drive base
         driveBase.setSpeed(driveOperator.speed());
         driveBase.setRotSpeed(driveOperator.rotSpeed());
         driveBase.updateTeleOp();
 
+        //controls arm
         mechOperator.giveLiftPos(arm.getLiftPostition());
         mechOperator.giveExtendPos(arm.getExtendPostion());
         mechOperator.giveTiltPos(arm.intake.getTiltPosition());
@@ -96,6 +99,7 @@ public class JankBot_TeleOP extends OpMode
 
         arm.intake.setTiltPosition(mechOperator.tiltIntakePosition());
 
+        //controls latching mechanism
         if (mechOperator.toggleLatch())
         {
             if (arm.latch.isReleased())
@@ -108,6 +112,7 @@ public class JankBot_TeleOP extends OpMode
             }
         }
 
+        //controls intake
         if (mechOperator.runIntake())
         {
             arm.intake.run();
