@@ -43,13 +43,21 @@ public class JankBot_AutoOP6 extends LinearOpMode
 
         arm.latch.unrelease();
 
-        arm.setLiftPosition(-8000);
+        arm.setLiftPosition(-8500);
+
         arm.setLiftPower(1);
 
-        base.setSpeed(0.3);
-        while(arm.isLiftBusy() && opModeIsActive());
+        base.setSpeed(0.5);
+        base.update();
+        while (arm.isLiftBusy() && opModeIsActive());
 
         arm.latch.release();
+        base.setSpeed(-0.2);
+        base.update();
         sleep(500);
+
+        base.setSpeed(0.5);
+        base.update();
+        sleep(250);
     }
 }

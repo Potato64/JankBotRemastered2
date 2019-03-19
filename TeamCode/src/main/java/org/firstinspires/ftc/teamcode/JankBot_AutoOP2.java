@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-//lands, starts facing crater, knocks off center mineral, goes to same crater
+//lands?, deploys marker in depot
 @Autonomous(name="AutoOP2", group="Linear Opmode")
 public class JankBot_AutoOP2 extends LinearOpMode
 {
@@ -51,6 +51,10 @@ public class JankBot_AutoOP2 extends LinearOpMode
 
         arm.intake.setTiltPosition(1000);
         arm.intake.setTiltPower(0.5);
+
+        wait(1000);
+
+        arm.intake.setTiltPosition(0);
 
         wait(1000);
     }

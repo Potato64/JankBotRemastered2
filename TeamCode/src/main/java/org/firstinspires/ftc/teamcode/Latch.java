@@ -40,6 +40,6 @@ public class Latch {
 
     public boolean isReleased()
     {
-        return leftRelease.getPosition() < LEFT_LATCH_MID;
+        return leftRelease.getPosition() > LEFT_LATCH_MID;
     }
 }

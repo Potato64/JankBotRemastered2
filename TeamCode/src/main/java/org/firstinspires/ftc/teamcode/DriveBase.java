@@ -95,7 +95,7 @@ public class DriveBase {
     {
         //adjusts motor powers in order to maintain the correct heading
         //uses proportional controller
-        double error = getHeading() - targetHeading;
+        double error = targetHeading - getHeading();
         double powerChange = error * rotKP;// + error * KI;
 
         double leftPower = speed + powerChange;
